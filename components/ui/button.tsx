@@ -1,4 +1,5 @@
 import type { ButtonHTMLAttributes } from "react";
+import { cn } from "@/lib/utils";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: "default" | "outline";
@@ -11,7 +12,7 @@ export function Button({ className = "", variant = "default", ...props }: Button
       : "bg-slate-900 text-white hover:bg-slate-700";
   return (
     <button
-      className={`inline-flex h-11 items-center justify-center rounded-lg px-4 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${styles} ${className}`}
+      className={cn("inline-flex h-11 items-center justify-center rounded-lg px-4 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50", styles, className)}
       {...props}
     />
   );

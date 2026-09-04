@@ -44,3 +44,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 4. Added Firebase client and Admin SDK authentication setup.
 5. Added Firebase-to-Prisma user synchronization, session cookies, and logout actions.
 6. Added Google/email auth context, login/register screens, and dashboard route protection.
+
+7. Added light/dark/system theme support and dashboard UI primitives.
+8. Added responsive Coinly sidebar, header, profile menu, mobile navigation, and overview shell.
