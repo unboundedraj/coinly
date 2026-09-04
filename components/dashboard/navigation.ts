@@ -6,10 +6,12 @@ import {
   LayoutDashboard,
   ReceiptText,
   WalletCards,
+  Wallet,
 } from "lucide-react";
 
 export const dashboardNavigation = [
   { label: "Overview", href: "/dashboard", icon: LayoutDashboard },
+  { label: "Accounts", href: "/dashboard/accounts", icon: Wallet },
   { label: "Transactions", href: "/dashboard/transactions", icon: ReceiptText },
   { label: "Budgets", href: "/dashboard/budgets", icon: WalletCards },
   { label: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },

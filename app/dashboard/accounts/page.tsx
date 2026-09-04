@@ -1,0 +1,17 @@
+import { CreditCard, Landmark, PiggyBank, TrendingUp, Wallet } from "lucide-react";
+import { getAccounts } from "@/actions/finance";
+import { AccountDialog } from "@/components/dashboard/account-dialog";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+
+const accountIcons = { CHECKING: Landmark, SAVINGS: PiggyBank, CREDIT_CARD: CreditCard, INVESTMENT: TrendingUp };
+
+export default async function AccountsPage() {
+  const accounts = await getAccounts();
+  const total = accounts.reduce((sum, account) => sum + account.balance, 0);
+  const currency = accounts[0]?.currency || "USD";
+  const formatMoney = (value: number) => new Intl.NumberFormat("en-IN", { style: "currency", currency, maximumFractionDigits: 2 }).format(value);
+
+  return <div className="mx-auto max-w-7xl space-y-7"><section className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><p className="text-sm font-medium text-emerald-600">Your money, organized</p><h1 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">Accounts</h1><p className="mt-2 text-sm text-slate-500">Keep every balance visible in one calm place.</p></div><AccountDialog /></section><Card className="border-emerald-200 bg-emerald-50/70 shadow-none dark:border-emerald-900 dark:bg-emerald-950/30"><CardContent className="flex items-center justify-between p-6"><div><p className="text-sm font-medium text-emerald-700 dark:text-emerald-300">Total balance</p><p className="mt-2 text-3xl font-semibold text-emerald-950 dark:text-emerald-100">{formatMoney(total)}</p></div><div className="rounded-2xl bg-white/80 p-3 text-emerald-600 dark:bg-emerald-900/60"><Wallet className="h-6 w-6" /></div></CardContent></Card>{accounts.length === 0 ? <Card className="border-dashed shadow-none dark:border-slate-800 dark:bg-slate-950/50"><CardContent className="flex min-h-64 flex-col items-center justify-center text-center"><div className="rounded-full bg-emerald-50 p-3 text-emerald-600 dark:bg-emerald-950/50"><Wallet className="h-6 w-6" /></div><h2 className="mt-4 font-semibold text-slate-900 dark:text-white">No accounts yet</h2><p className="mt-2 max-w-sm text-sm text-slate-500">Add your first account so transactions can update your real balances.</p><AccountDialog trigger={<Button className="mt-5">Add your first account</Button>} /></CardContent></Card> : <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{accounts.map((account) => { const Icon = accountIcons[account.type]; return <Card key={account.id} className="border-slate-200/80 shadow-none dark:border-slate-800 dark:bg-slate-950/50"><CardContent className="p-5"><div className="flex items-start justify-between"><div className="rounded-xl bg-slate-100 p-2.5 text-slate-600 dark:bg-slate-900 dark:text-slate-300"><Icon className="h-5 w-5" /></div><Badge>{account.type.replace("_", " ")}</Badge></div><h2 className="mt-6 font-semibold text-slate-900 dark:text-white">{account.name}</h2><p className="mt-2 text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">{formatMoney(account.balance)}</p><p className="mt-1 text-xs text-slate-400">{account.currency}</p></CardContent></Card>; })}</section>}</div>;
+}

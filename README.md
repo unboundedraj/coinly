@@ -47,3 +47,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 7. Added light/dark/system theme support and dashboard UI primitives.
 8. Added responsive Coinly sidebar, header, profile menu, mobile navigation, and overview shell.
+
+9. Added account and transaction Server Actions with atomic balance updates and transfer handling.
+10. Added transaction CRUD, budget management, validation forms, filters, tables, and live dashboard totals.
+
+11. Added Accounts UI with account creation, balance cards, navigation, and transaction empty-state recovery.
