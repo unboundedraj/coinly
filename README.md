@@ -56,3 +56,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 12. Added Chart.js analytics with cash flow, category spending, and net worth visualizations.
 
 13. Added Gemini AI quick-add parsing, monthly health audits, and a private financial advisor chat.
+
+14. Added investments portfolio tracking, goal setting with account-funded contributions, and branded PDF financial statement exports.
