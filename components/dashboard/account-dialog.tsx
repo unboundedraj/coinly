@@ -8,7 +8,7 @@ import { FormField } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 
-export function AccountDialog({ trigger, onCreated }: { trigger?: React.ReactNode; onCreated?: () => void }) {
+export function AccountDialog({ trigger, triggerLabel = "Add Account", onCreated }: { trigger?: React.ReactNode; triggerLabel?: string; onCreated?: () => void }) {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [type, setType] = useState<"CHECKING" | "SAVINGS" | "CREDIT_CARD" | "INVESTMENT">("CHECKING");

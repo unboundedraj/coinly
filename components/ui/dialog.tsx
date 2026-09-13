@@ -21,7 +21,7 @@ export function DialogTrigger({ children, onClick, ...props }: ButtonHTMLAttribu
   const context = useContext(DialogContext);
   const open = () => context?.setOpen(true);
   if (isValidElement<ButtonHTMLAttributes<HTMLButtonElement>>(children)) {
-    return cloneElement(children, { onClick: (event) => { onClick?.(event); children.props.onClick?.(event); open(); } });
+    return cloneElement(children, { suppressHydrationWarning: true, onClick: (event) => { onClick?.(event); children.props.onClick?.(event); open(); } });
   }
   return <button type="button" onClick={(event) => { onClick?.(event); open(); }} {...props}>{children}</button>;
 }

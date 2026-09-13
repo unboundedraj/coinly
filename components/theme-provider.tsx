@@ -12,13 +12,11 @@ function getSystemTheme(): "light" | "dark" {
 }
 
 export function ThemeProvider({ children, defaultTheme = "system" }: { children: ReactNode; defaultTheme?: Theme }) {
-  const [theme, setTheme] = useState<Theme>(defaultTheme);
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === "undefined") return defaultTheme;
+    return (window.localStorage.getItem("coinly-theme") as Theme | null) ?? defaultTheme;
+  });
   const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light");
-
-  useEffect(() => {
-    const storedTheme = window.localStorage.getItem("coinly-theme") as Theme | null;
-    if (storedTheme) setTheme(storedTheme);
-  }, []);
 
   useEffect(() => {
     const resolve = () => {

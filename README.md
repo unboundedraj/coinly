@@ -54,3 +54,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 11. Added Accounts UI with account creation, balance cards, navigation, and transaction empty-state recovery.
 
 12. Added Chart.js analytics with cash flow, category spending, and net worth visualizations.
+
+13. Added Gemini AI quick-add parsing, monthly health audits, and a private financial advisor chat.
