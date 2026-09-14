@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export function AuthForm({ mode }: { mode: "login" | "register" }) {
+export function AuthForm({ mode, notice }: { mode: "login" | "register"; notice?: string }) {
   const router = useRouter();
   const { signInWithGoogle, signInWithEmail, signUpWithEmail } = useAuth();
   const [name, setName] = useState("");
@@ -48,10 +48,9 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
   }
 
   return (
-    <Card className="w-full max-w-md">
+    <Card className="w-full">
       <CardHeader>
-        <p className="mb-3 text-sm font-semibold tracking-wide text-emerald-600">COINLY</p>
-        <h1 className="text-2xl font-semibold tracking-tight text-slate-950">
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">
           {isRegister ? "Start your money story" : "Welcome back"}
         </h1>
         <p className="mt-2 text-sm text-slate-500">
@@ -59,13 +58,18 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
         </p>
       </CardHeader>
       <CardContent>
+        {notice && (
+          <p className="mb-5 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2.5 text-sm text-amber-800 dark:border-amber-900 dark:bg-amber-950/50 dark:text-amber-200">
+            {notice}
+          </p>
+        )}
         <Button type="button" variant="outline" className="w-full" onClick={googleSignIn} disabled={pending}>
           Continue with Google
         </Button>
         <div className="my-6 flex items-center gap-3 text-xs text-slate-400">
-          <span className="h-px flex-1 bg-slate-200" />
+          <span className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
           OR
-          <span className="h-px flex-1 bg-slate-200" />
+          <span className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
         </div>
         <form onSubmit={submit} className="space-y-4">
           {isRegister && (
@@ -89,7 +93,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
         </form>
         <p className="mt-6 text-center text-sm text-slate-500">
           {isRegister ? "Already have an account?" : "New to Coinly?"}{" "}
-          <Link className="font-semibold text-slate-900 hover:text-emerald-600" href={isRegister ? "/login" : "/register"}>
+          <Link className="font-semibold text-slate-900 hover:text-emerald-600 dark:text-white dark:hover:text-emerald-400" href={isRegister ? "/login" : "/register"}>
             {isRegister ? "Sign in" : "Create an account"}
           </Link>
         </p>

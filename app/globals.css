@@ -5,22 +5,90 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Brand ramp carried over from the original Coinly neon-green identity */
+  --brand-300: #86efac;
+  --brand-400: #4ade80;
+  --brand-500: #22c55e;
+  --brand-600: #16a34a;
+  --brand-gold: #fbbf24;
+
+  /* Surfaces + hairlines used by the marketing shell */
+  --surface-deep: #04100c;
+  --surface-raised: rgba(255, 255, 255, 0.04);
+  --grid-line: rgba(34, 197, 94, 0.07);
+  --glow-brand: rgba(34, 197, 94, 0.35);
 }
 
 html.dark {
   --background: #071411;
   --foreground: #edf7f1;
+  --grid-line: rgba(34, 197, 94, 0.1);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-gold: var(--brand-gold);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-dancing-script);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), sans-serif;
+}
+
+/* The original's signature neon grid, rebuilt as a reusable utility. */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* Soft radial brand glow used behind hero art and primary CTAs. */
+@utility glow-brand {
+  box-shadow: 0 0 60px -12px var(--glow-brand);
+}
+
+@keyframes coinly-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes coinly-pulse-glow {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.85; }
+}
+
+@keyframes coinly-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@utility animate-float {
+  animation: coinly-float 5s ease-in-out infinite;
+}
+
+@utility animate-pulse-glow {
+  animation: coinly-pulse-glow 4s ease-in-out infinite;
+}
+
+@utility animate-rise {
+  animation: coinly-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-pulse-glow,
+  .animate-rise {
+    animation: none;
+  }
 }

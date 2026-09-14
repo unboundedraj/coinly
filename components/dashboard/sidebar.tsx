@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { dashboardNavigation } from "@/components/dashboard/navigation";
+import { Wordmark } from "@/components/ui/wordmark";
 import { cn } from "@/lib/utils";
 
 export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
@@ -11,11 +12,8 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
 
   return (
     <aside className="flex h-full w-64 shrink-0 flex-col border-r border-slate-200/80 bg-white/75 px-4 py-6 dark:border-slate-800 dark:bg-slate-950/70">
-      <Link href="/dashboard" className="mb-10 flex items-center gap-3 px-3" onClick={onNavigate}>
-        <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500 text-white shadow-lg shadow-emerald-500/20">
-          <Sparkles className="h-5 w-5" />
-        </span>
-        <span className="text-xl font-semibold tracking-tight text-slate-950 dark:text-white">Coinly</span>
+      <Link href="/dashboard" className="mb-10 flex items-center px-3" onClick={onNavigate} aria-label="Coinly dashboard">
+        <Wordmark size="sm" />
       </Link>
       <nav className="space-y-1" aria-label="Dashboard navigation">
         {dashboardNavigation.map((item) => {
@@ -40,9 +38,12 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
           );
         })}
       </nav>
-      <div className="mt-auto rounded-2xl bg-slate-950 p-4 text-white dark:bg-emerald-950/60">
-        <p className="text-xs font-medium uppercase tracking-[0.16em] text-emerald-300">Your money, clearer</p>
-        <p className="mt-2 text-sm leading-6 text-slate-300">A calmer view of what you have and where it goes.</p>
+      <div className="relative mt-auto overflow-hidden rounded-2xl bg-slate-950 p-4 text-white dark:bg-emerald-950/60">
+        <div className="bg-grid absolute inset-0 opacity-60" aria-hidden="true" />
+        <div className="relative">
+          <p className="text-xs font-medium uppercase tracking-[0.16em] text-emerald-300">Your money, clearer</p>
+          <p className="mt-2 text-sm leading-6 text-slate-300">A calmer view of what you have and where it goes.</p>
+        </div>
       </div>
     </aside>
   );

@@ -69,7 +69,7 @@ export default function InvestmentsPage() {
         <TableBody>
           {rows.map((row) => <TableRow key={row.id}>
             <TableCell className="font-medium text-slate-900 dark:text-white">{row.symbol}</TableCell>
-            <TableCell><Badge>{row.assetType.replace("_", " ")}</Badge></TableCell>
+            <TableCell><Badge tone="slate">{row.assetType.replace("_", " ")}</Badge></TableCell>
             <TableCell className="text-right">{row.units}</TableCell>
             <TableCell className="text-right">{formatMoney(row.buyPrice)}</TableCell>
             <TableCell className="text-right">{formatMoney(row.currentPrice)}</TableCell>

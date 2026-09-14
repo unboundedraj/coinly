@@ -26,6 +26,19 @@ export function verifyFirebaseToken(token: string) {
   return adminAuth.verifyIdToken(token);
 }
 
-export function verifyFirebaseSession(session: string) {
-  return adminAuth.verifySessionCookie(session, true);
+/**
+ * Exchanges a short-lived Firebase ID token (1 hour) for a session cookie that
+ * stays valid for `expiresInMs` (Firebase allows 5 minutes to 2 weeks).
+ */
+export function createFirebaseSessionCookie(idToken: string, expiresInMs: number) {
+  return adminAuth.createSessionCookie(idToken, { expiresIn: expiresInMs });
+}
+
+/**
+ * `checkRevoked` defaults to false so verification stays local (cached public
+ * keys) instead of hitting Firebase on every request; revocation is then bounded
+ * by the cookie's own expiry.
+ */
+export function verifyFirebaseSession(session: string, checkRevoked = false) {
+  return adminAuth.verifySessionCookie(session, checkRevoked);
 }
