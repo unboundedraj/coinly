@@ -16,14 +16,17 @@ export function AIHealthAudit() {
   const [error, setError] = useState("");
   const [pending, startTransition] = useTransition();
 
-  function regenerate() {
+  function loadAudit(month: number, year: number) {
     setError("");
-    startTransition(() => { void generateSpendingAudit(now.getMonth() + 1, now.getFullYear()).then(setAudit).catch((auditError) => setError(auditError instanceof Error ? auditError.message : "Unable to generate audit.")); });
+    startTransition(() => {
+      void generateSpendingAudit(month, year)
+        .then((result) => { if (result.ok) setAudit(result.data); else setError(result.error); })
+        .catch(() => setError("Unable to generate audit."));
+    });
   }
+  function regenerate() { loadAudit(now.getMonth() + 1, now.getFullYear()); }
   useEffect(() => {
-    const timeout = window.setTimeout(() => {
-      startTransition(() => { void generateSpendingAudit(auditMonth, auditYear).then(setAudit).catch((auditError) => setError(auditError instanceof Error ? auditError.message : "Unable to generate audit.")); });
-    }, 0);
+    const timeout = window.setTimeout(() => loadAudit(auditMonth, auditYear), 0);
     return () => window.clearTimeout(timeout);
   }, [auditMonth, auditYear]);
 

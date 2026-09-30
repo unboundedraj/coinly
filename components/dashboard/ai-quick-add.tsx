@@ -20,7 +20,9 @@ export function AIQuickAdd() {
     setPending(true);
     setError("");
     try {
-      const [parsed, accounts] = await Promise.all([parseTransactionText(text), getAccounts()]);
+      const [result, accounts] = await Promise.all([parseTransactionText(text), getAccounts()]);
+      if (!result.ok) throw new Error(result.error);
+      const parsed = result.data;
       const preferredType = parsed.suggestedAccountType?.toUpperCase();
       const account = accounts.find((item) => preferredType && item.type === preferredType) ?? accounts[0];
       if (!account) throw new Error("Create an account before using AI Quick Add.");

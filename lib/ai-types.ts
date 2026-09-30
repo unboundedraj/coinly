@@ -17,5 +17,8 @@ export type SpendingAudit = {
   actions: string[];
 };
 
+/** AI actions return failures instead of throwing: production masks thrown server-action errors (React #441). */
+export type AiResult<T> = { ok: true; data: T } | { ok: false; error: string };
+
 export type AdvisorMessage = { role: "user" | "model"; text: string };
 export type AdvisorRange = AnalyticsTimeRange;
